@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 
 services/deepl/node_modules
+.idea
