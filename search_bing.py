@@ -46,28 +46,42 @@ def search_bing():
             'response': mid_list
         }
         cost = time.time() - started
-        print(f"search cost {cost:.4f}s")-
+        print(f"search cost {cost:.4f}s")
         return response_reply
     return None
 
-
+# 修改为deepl的翻译 20220428
 @app.route("/baidu_translate", methods=("GET", "POST"))
 def _translate():
     started = time.time()
-    url = 'https://api.fanyi.baidu.com/api/trans/vip/translate'
+    url = 'http://127.0.0.1:3000/deepl/trans'
     data = request.args.to_dict()
-    ori_input = {'salt': random.randint(1, 2022),
-                 'appid': '20220211001079919',
-                 'secret_key': 'dTWhdYJ0lxsZAGlVDH8D',
-                 'content': data['content'],
-                 'from': data['fromLang'],
-                 'to': data['toLang']}
-
-    output = Baidu_translate.trans(url, ori_input)
+    content = data['content']
+    fromLang = data['fromLang']
+    toLang = data['toLang']
+    req_url = url + '?source=' + content + '&transType=' + fromLang + '2' + toLang
+    output = requests.get(req_url).json()
     print(output)
     cost = time.time() - started
     print(f"translate cost {cost:.4f}s")
-    return output['dst']
+    return output['target']
+
+# def _translate():
+#     started = time.time()
+#     url = 'https://api.fanyi.baidu.com/api/trans/vip/translate'
+#     data = request.args.to_dict()
+#     ori_input = {'salt': random.randint(1, 2022),
+#                  'appid': '20220211001079919',
+#                  'secret_key': 'dTWhdYJ0lxsZAGlVDH8D',
+#                  'content': data['content'],
+#                  'from': data['fromLang'],
+#                  'to': data['toLang']}
+#
+#     output = Baidu_translate.trans(url, ori_input)
+#     print(output)
+#     cost = time.time() - started
+#     print(f"translate cost {cost:.4f}s")
+#     return output['dst']
 
 
 # @app.route("/test", methods=['GET', 'POST'])
