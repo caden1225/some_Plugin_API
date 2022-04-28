@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="atc-di" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="atc-di">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/data/projects/ParlAI_Plugin_API" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
