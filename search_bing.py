@@ -54,17 +54,16 @@ def search_bing():
 @app.route("/baidu_translate", methods=("GET", "POST"))
 def _translate():
     started = time.time()
-    url = 'http://127.0.0.1:3000/deepl/trans'
+    url = 'https://api-free.deepl.com/v2/translate'
     data = request.args.to_dict()
     content = data['content']
-    fromLang = data['fromLang']
-    toLang = data['toLang']
-    req_url = url + '?source=' + content + '&transType=' + fromLang + '2' + toLang
+    target_lang = data['toLang']
+    req_url = url + '?auth_key=640de6ab-efc2-90c5-7306-cabea0e2e15a:fx&text=' + content + '&target_lang='+ target_lang
     output = requests.get(req_url).json()
     print(output)
     cost = time.time() - started
     print(f"translate cost {cost:.4f}s")
-    return output['target']
+    return output['translations'][0]['text']
 
 # def _translate():
 #     started = time.time()
