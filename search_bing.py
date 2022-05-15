@@ -51,36 +51,37 @@ def search_bing():
     return None
 
 # 修改为deepl的翻译 20220428
-@app.route("/baidu_translate", methods=("GET", "POST"))
-def _translate():
-    started = time.time()
-    url = 'https://api-free.deepl.com/v2/translate'
-    data = request.args.to_dict()
-    content = data['content']
-    target_lang = data['toLang']
-    req_url = url + '?auth_key=640de6ab-efc2-90c5-7306-cabea0e2e15a:fx&text=' + content + '&target_lang='+ target_lang
-    output = requests.get(req_url).json()
-    print(output)
-    cost = time.time() - started
-    print(f"translate cost {cost:.4f}s")
-    return output['translations'][0]['text']
-
+# @app.route("/baidu_translate", methods=("GET", "POST"))
 # def _translate():
 #     started = time.time()
-#     url = 'https://api.fanyi.baidu.com/api/trans/vip/translate'
+#     url = 'https://api-free.deepl.com/v2/translate'
 #     data = request.args.to_dict()
-#     ori_input = {'salt': random.randint(1, 2022),
-#                  'appid': '20220211001079919',
-#                  'secret_key': 'dTWhdYJ0lxsZAGlVDH8D',
-#                  'content': data['content'],
-#                  'from': data['fromLang'],
-#                  'to': data['toLang']}
-#
-#     output = Baidu_translate.trans(url, ori_input)
+#     content = data['content']
+#     target_lang = data['toLang']
+#     req_url = url + '?auth_key=640de6ab-efc2-90c5-7306-cabea0e2e15a:fx&text=' + content + '&target_lang='+ target_lang
+#     output = requests.get(req_url).json()
 #     print(output)
 #     cost = time.time() - started
 #     print(f"translate cost {cost:.4f}s")
-#     return output['dst']
+#     return output['translations'][0]['text']
+
+@app.route("/baidu_translate", methods=("GET", "POST"))
+def _translate():
+    started = time.time()
+    url = 'https://api.fanyi.baidu.com/api/trans/vip/translate'
+    data = request.args.to_dict()
+    ori_input = {'salt': random.randint(1, 2022),
+                 'appid': '20220211001079919',
+                 'secret_key': 'dTWhdYJ0lxsZAGlVDH8D',
+                 'content': data['content'],
+                 'from': data['fromLang'],
+                 'to': data['toLang']}
+
+    output = Baidu_translate.trans(url, ori_input)
+    print(output)
+    cost = time.time() - started
+    print(f"translate cost {cost:.4f}s")
+    return output['dst']
 
 
 # @app.route("/test", methods=['GET', 'POST'])
